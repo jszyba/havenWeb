@@ -18,7 +18,7 @@ router.get('/bees', function (req, res, next) {
             return;
         }
         res.json(entities);
-        console.log(entities);
+        // console.log(entities);
     });
 });
 

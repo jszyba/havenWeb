@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const helpers = require('./helpers');
 
 const ENV = process.env.ENV = 'development';
@@ -67,13 +68,11 @@ module.exports = {
         new HtmlWebpackPlugin({
             inject: true,
             template: 'client/src/index.html',
-            title: 'Medimizer Dashboard'
-        })
-        // new HtmlWebpackPlugin({
-        //     inject: 'body',
-        //     template: '!!pug-loader!server/views/index.pug',
-        //     title: 'React Dev Server'
-        // })
+            title: 'Bee Haven Buzz'
+        }),
+        new CopyWebpackPlugin([
+            { from: helpers.root('favicon.ico'), to: helpers.root('dist') }
+        ])
     ],
 
     devServer: {
