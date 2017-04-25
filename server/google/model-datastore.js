@@ -33,9 +33,9 @@ function toDatastore (obj, nonIndexed) {
 
 function list (limit, token, cb) {
   const q = ds.createQuery([kind])
-    .limit(limit)
-    .order(order)
-    .start(token);
+      .order(order, {descending: true})
+      .limit(limit);
+      // .start(token);
 
   ds.runQuery(q, (err, entities, nextQuery) => {
     if (err) {
