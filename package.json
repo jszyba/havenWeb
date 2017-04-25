@@ -7,7 +7,7 @@
     "watch-server": "nodemon ./server/bin/www",
     "dev-server": "webpack-dev-server --inline --progress --port 8081",
     "dev-client": "webpack -d --watch --progress --display-error-details",
-    "build-prod": "rimraf dist && webpack --config config/webpack.prod.js --progress --profile --bail"
+    "build-prod": "rimraf ./server/public && webpack --config config/webpack.prod.js --progress --profile --bail"
   },
   "dependencies": {
     "@google-cloud/datastore": "~1.0.0",

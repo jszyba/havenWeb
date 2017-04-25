@@ -6,6 +6,11 @@ const helpers = require('./helpers');
 
 const ENV = process.env.ENV = 'production';
 
+const extractSass = new ExtractTextPlugin({
+  filename: "[name].css",
+  disable: process.env.ENV === "development"
+});
+
 module.exports = {
 
     devtool: 'source-map',
@@ -24,11 +29,23 @@ module.exports = {
 
     module: {
         rules: [
-            {
-                test: /\.scss$/,
-                loaders: ['raw-loader', 'sass-loader']
-
-            },
+          {
+            test: /\.scss$/,
+            use: extractSass.extract({
+              use: [{
+                loader: "css-loader"
+              }, {
+                loader: "sass-loader"
+              }],
+              // use style-loader in development
+              fallback: "style-loader"
+            })
+          },
+            // {
+            //     test: /\.scss$/,
+            //     loaders: ['raw-loader', 'sass-loader']
+            //
+            // },
             {
                 test: /\.(pug|jade)$/,
                 loader: 'pug-html-loader'
@@ -44,9 +61,10 @@ module.exports = {
     },
 
     plugins: [
-        new ExtractTextPlugin({
-            filename: "[name].[hash].css",
-        }),
+        // new ExtractTextPlugin({
+        //     filename: "[name].[hash].css",
+        // }),
+      extractSass,
         new webpack.optimize.CommonsChunkPlugin({
             name: ['app', 'vendor']
         }),
