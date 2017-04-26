@@ -17,4 +17,4 @@ ReactDOM.render(
     </Provider>,
     document.getElementById('root')
 );
-store.dispatch(getInitialData('http://localhost:3000/bees'));
+store.dispatch(getInitialData('/bees'));

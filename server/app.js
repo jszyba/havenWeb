@@ -5,10 +5,21 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const google = require('googleapis');
 
 const api = require('./routes/api');
 
 const app = express();
+
+console.log('current path:', path.join(__dirname));
+
+process.env.GOOGLE_APPLICATION_CREDENTIALS = path.join(__dirname, 'hpsecret.json');
+
+google.auth.getApplicationDefault(function (err, authClient) {
+  if (err) {
+    console.log(err);
+  }
+});
 
 // dev
 app.use(cors({origin: 'http://localhost:8081'}));

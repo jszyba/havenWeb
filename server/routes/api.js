@@ -14,11 +14,12 @@ router.get('/', function(req, res, next) {
 router.get('/bees', function (req, res, next) {
     model.list(20, req.query.pageToken, (err, entities, cursor) => {
         if (err) {
+            console.log(err);
             next(err);
             return;
         }
+        console.log(entities.length + ' received from datastore');
         res.json(entities.reverse());
-        // console.log(entities);
     });
 });
 

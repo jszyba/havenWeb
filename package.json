@@ -1,13 +1,21 @@
 {
-  "name": "medimizer",
-  "version": "0.0.0",
+  "name": "bee-haven-web",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "start": "node ./server/bin/www",
     "watch-server": "nodemon ./server/bin/www",
-    "dev-server": "webpack-dev-server --inline --progress --port 8081",
-    "dev-client": "webpack -d --watch --progress --display-error-details",
-    "build-prod": "rimraf ./server/public && webpack --config config/webpack.prod.js --progress --profile --bail"
+    "dev-web-server": "webpack-dev-server --inline --progress --port 8081",
+    "watch-client": "webpack -d --watch --progress --display-error-details",
+    "build-prod": "rimraf ./server/public && webpack --config config/webpack.prod.js --progress --profile --bail",
+    "deploy": "gcloud app deploy"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jszyba/havenWeb.git"
+  },
+  "engines": {
+    "node": ">=4.3.2"
   },
   "dependencies": {
     "@google-cloud/datastore": "~1.0.0",
