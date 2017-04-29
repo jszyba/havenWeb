@@ -46,6 +46,8 @@
     "redux": "^3.6.0",
     "redux-thunk": "^2.2.0",
     "serve-favicon": "~2.3.2",
+    "socket.io": "^1.7.3",
+    "socket.io-client": "^1.7.3",
     "superagent": "^3.5.0",
     "whatwg-fetch": "^2.0.3"
   },

@@ -1,4 +1,3 @@
-
 export const getInitialData = (url) => {
     return (dispatch) => {
         fetch(url)
@@ -17,4 +16,12 @@ export const getInitialDataReceived = (data) => {
         type: GET_DATA_RECEIVED,
         payload: data
     }
+};
+
+export const GET_NEW_ENTITY = 'GET_NEW_ENTITY';
+export const getNewEntity = (data) => {
+  return {
+    type: GET_NEW_ENTITY,
+    payload: data
+  }
 };

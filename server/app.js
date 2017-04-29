@@ -2,19 +2,34 @@ const express = require('express');
 const path = require('path');
 const favicon = require('serve-favicon');
 const logger = require('morgan');
-const cookieParser = require('cookie-parser');
+// const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const google = require('googleapis');
 
-const api = require('./routes/api');
-
 const app = express();
+const socketPort = 3001;
+
+const socketServer = app.listen(socketPort, (err) => {
+  if (err) {
+    console.log(err);
+  }
+});
+
+const io = require('socket.io')(socketServer);
+
+// const socketServer = require('http').Server(app);
+
+io.on('connection', (socket) => {
+  console.log(`${socket.id} connected`);
+
+  socket.on('disconnect', () => {
+    console.log(`${socket.id} disconnected`);
+  });
+});
 
 console.log('current path:', path.join(__dirname));
-
 process.env.GOOGLE_APPLICATION_CREDENTIALS = path.join(__dirname, 'hpsecret.json');
-
 google.auth.getApplicationDefault(function (err, authClient) {
   if (err) {
     console.log(err);
@@ -27,6 +42,8 @@ app.use(cors({origin: 'http://localhost:8081'}));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+const api = require('./routes/api');
 
 // env
 app.set('env', 'production');
@@ -59,4 +76,7 @@ app.use(function(err, req, res, next) {
   });
 });
 
-module.exports = app;
+module.exports = {
+  app: app,
+  io: io
+};
